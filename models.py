@@ -7,13 +7,16 @@ from bson import ObjectId
 # nosql/mongodb
 class User(BaseModel):
     username: str
-    hashed_password: str
-    salt: str
 
 
 class UserInDB(User):
-    _id: ObjectId
+    hashed_password: str
+    salt: str
     date_created: datetime = Field(default_factory=datetime.utcnow)
+
+
+class UserInResponse(User):
+    token: str
 
 
 class Message(BaseModel):
@@ -36,3 +39,7 @@ class Room(BaseModel):
 class RoomInDB(Room):
     _id: ObjectId
     date_created: datetime = Field(default_factory=datetime.utcnow)
+
+
+class TokenPayload(BaseModel):
+    username: str = ""
