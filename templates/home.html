@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block head%}
+<link href="{{ url_for('static', path='/home.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body%}
+<div class="container">
+    <div class="home-page-container">
+        <h3>Login</h3>
+        <div class="row">
+            <form class="col s12" name="login-form" action="main" onsubmit="on_login(event)">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="Username" id="login-username" type="text" class="validate">
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Password" id="login-password" type="password" class="validate">
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #4a85d9">
+                    Login 
+                </button>
+            </form>
+        </div>
+        <h3>Register</h3>
+        <div class="row">
+            <form class="col s12" name="register-form" action="main" onsubmit="on_register(event)">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input placeholder="Username" id="register-username" type="text">
+                    </div>
+                    <div class="input-field col s6">
+                        <input placeholder="Password" id="register-password" type="password">
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light" type="submit" name="action" style="background-color: #4a85d9">
+                    Register 
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+async function on_register(event) {
+    event.preventDefault()
+    var username = document.getElementById("register-username").value 
+    var password = document.getElementById("register-password").value 
+    var body =  {
+        "username" : username,
+        "password" : password
+    }
+    var options = {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        dataType: 'html',
+        redirect: 'follow', // manual, *follow, error
+        body: JSON.stringify(body) // body data type must match "Content-Type" header
+    }
+    var url = "http://127.0.0.1:8000/register"
+    var response = await fetch(url, options)
+    console.log(response)
+}
+async function on_login(event) {
+    event.preventDefault()
+    username = document.getElementById("login-username").value 
+    password = document.getElementById("login-password").value 
+    var body =  {
+        "username" : username,
+        "password" : password
+    }
+    var options = {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        redirect: 'follow', // manual, *follow, error
+        referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+        body: JSON.stringify(body) // body data type must match "Content-Type" header
+    }
+    var url = "http://127.0.0.1:8000/login" 
+    var response = await fetch(url, options)
+    console.log(response.url)
+    window.location.href = response.url
+}
+</script>
+{% endblock %}

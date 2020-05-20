@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chat</title>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"> 
+        
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        
+        <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+        
+        {% block head %}  
+        {% endblock %} 
+    </head>
+    <body>
+        <nav id="header" style="height: 70px; overflow: hidden;">
+            <div class="nav-wrapper" style="background: #4a85d9; height: 100%;">
+                <div class="container" style="width:70%; height: 100%; ">
+                    <a href='#' class="brand-logo">{{user_name}} in {{room_name}}</a>
+                </div> 
+            </div>
+        </nav>
+        {% block body %}
+        {% endblock %}
+    </body>
+</html>
